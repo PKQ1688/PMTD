@@ -2,7 +2,9 @@ import argparse
 import os
 
 import cv2
+import sys
 
+sys.path.append('../')
 from demo.PMTD_predictor import PMTDDemo
 from demo.inference import PlaneClustering
 from maskrcnn_benchmark.config import cfg
