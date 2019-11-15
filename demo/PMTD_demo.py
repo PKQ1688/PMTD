@@ -88,7 +88,8 @@ def main():
         # cv2.resizeWindow('image', 800, 800)
         # cv2.imshow('image', predictions[:, :, ::-1])
         # cv2.waitKey(0)
-        cv2.imwrite('./data_test/1.png', predictions[:, :, ::-1])
+        print('111', predictions)
+        cv2.imwrite('./data_test/1.png', predictions)
     else:
         predictions = pmtd_demo.compute_prediction(image)
         top_predictions = pmtd_demo.select_top_predictions(predictions)
