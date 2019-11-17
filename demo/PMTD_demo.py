@@ -88,8 +88,18 @@ def main():
         # cv2.resizeWindow('image', 800, 800)
         # cv2.imshow('image', predictions[:, :, ::-1])
         # cv2.waitKey(0)
+
+        ori_image = image.copy()
+        predictions = pmtd_demo.compute_prediction(image)
+        top_predictions = pmtd_demo.select_top_predictions(predictions)
+        bboxes = top_predictions.bbox
+        print('22222', bboxes)
+        for box in bboxes:
+            cv2.rectangle(image, (int(box[0].item()), int(box[1].item())),
+                          (int(box[2].item()), int(box[3].item())), (255, 0, 0), 2)
         print('111', predictions)
-        cv2.imwrite('./data_test/1.png', predictions)
+
+        cv2.imwrite('./data_test/1.png', image)
     else:
         predictions = pmtd_demo.compute_prediction(image)
         top_predictions = pmtd_demo.select_top_predictions(predictions)
