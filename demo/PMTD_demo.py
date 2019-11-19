@@ -109,6 +109,8 @@ def main():
         scores = top_predictions.extra_fields['scores']
         for bbox, mask, score in zip(bboxes, masks, scores):
             print(bbox, mask[0], score)
+            with open(predict_file,'a') as f:
+                f.write()
 
 
 if __name__ == '__main__':
