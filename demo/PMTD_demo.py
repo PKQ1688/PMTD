@@ -107,10 +107,31 @@ def main():
         bboxes = top_predictions.bbox
         masks = top_predictions.extra_fields['mask']
         scores = top_predictions.extra_fields['scores']
+
+        img_name = os.path.basename(args.image_path)
+        file_name = img_name.replace('png', 'txt')
+        predict_file = os.path.join('/home/shizai/adolf/ai+rpa/ocr/ocr_use/PMTD/res_miao', file_name)
+
         for bbox, mask, score in zip(bboxes, masks, scores):
             print(bbox, mask[0], score)
-            with open(predict_file,'a') as f:
-                f.write()
+            with open(predict_file, 'a') as f:
+                f.write(str(mask[0][0].item()))
+                f.write(',')
+                f.write(str(mask[0][1].item()))
+                f.write(',')
+                f.write(str(mask[1][0].item()))
+                f.write(',')
+                f.write(str(mask[1][1].item()))
+                f.write(',')
+                f.write(str(mask[2][0].item()))
+                f.write(',')
+                f.write(str(mask[2][1].item()))
+                f.write(',')
+                f.write(str(mask[3][0].item()))
+                f.write(',')
+                f.write(str(mask[3][1].item()))
+                f.write(',')
+                f.write('\n')
 
 
 if __name__ == '__main__':
