@@ -10,6 +10,9 @@ from demo.inference import PlaneClustering
 from maskrcnn_benchmark.config import cfg
 from maskrcnn_benchmark.modeling.roi_heads.mask_head.inference import Masker
 
+import numpy as np
+from scipy import spatial
+
 
 def build_parser():
     parser = argparse.ArgumentParser(description="PMTD Single Image Inference")
@@ -75,6 +78,23 @@ def create_pmtd_demo(args):
     return pmtd_demo
 
 
+def _order_points(pts):
+    pts = np.array(pts)
+    x_sorted = pts[np.argsort(pts[:, 0]), :]
+
+    left_most = x_sorted[:2, :]
+    right_most = x_sorted[2:, :]
+
+    left_most = left_most[np.argsort(left_most[:, 1]), :]
+    (tl, bl) = left_most
+
+    distance = spatial.distance.cdist(tl[np.newaxis], right_most, 'euclidean')[0]
+
+    (br, tr) = right_most[np.argsort(distance)[::-1], :]
+
+    return np.array([tl, tr, br, bl], dtype='int')
+
+
 def main():
     parser = build_parser()
     args = parser.parse_args()
@@ -109,7 +129,7 @@ def main():
         scores = top_predictions.extra_fields['scores']
 
         img_name = os.path.basename(args.image_path)
-        file_name = img_name.replace('png', 'txt')
+        file_name = 'res_' + img_name.replace('png', 'txt')
         predict_file = os.path.join('/home/shizai/adolf/ai+rpa/ocr/ocr_use/PMTD/res_miao', file_name)
 
         with open(predict_file, 'w') as f:
@@ -117,6 +137,7 @@ def main():
                 print(bbox, mask[0], score)
 
                 masks = mask[0]
+                masks = _order_points(masks)
                 print(masks)
                 f.write(str(int(masks[0][0].item())))
                 f.write(',')
