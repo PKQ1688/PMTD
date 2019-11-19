@@ -112,25 +112,28 @@ def main():
         file_name = img_name.replace('png', 'txt')
         predict_file = os.path.join('/home/shizai/adolf/ai+rpa/ocr/ocr_use/PMTD/res_miao', file_name)
 
-        for bbox, mask, score in zip(bboxes, masks, scores):
-            print(bbox, mask[0], score)
-            with open(predict_file, 'a') as f:
-                f.write(str(mask[0][0].item()))
+        with open(predict_file, 'w') as f:
+            for bbox, mask, score in zip(bboxes, masks, scores):
+                print(bbox, mask[0], score)
+
+                masks = mask[0]
+                print(masks)
+                f.write(str(int(masks[0][0].item())))
                 f.write(',')
-                f.write(str(mask[0][1].item()))
+                f.write(str(int(masks[0][1].item())))
                 f.write(',')
-                f.write(str(mask[1][0].item()))
+                f.write(str(int(masks[1][0].item())))
                 f.write(',')
-                f.write(str(mask[1][1].item()))
+                f.write(str(int(masks[1][1].item())))
                 f.write(',')
-                f.write(str(mask[2][0].item()))
+                f.write(str(int(masks[2][0].item())))
                 f.write(',')
-                f.write(str(mask[2][1].item()))
+                f.write(str(int(masks[2][1].item())))
                 f.write(',')
-                f.write(str(mask[3][0].item()))
+                f.write(str(int(masks[3][0].item())))
                 f.write(',')
-                f.write(str(mask[3][1].item()))
-                f.write(',')
+                f.write(str(int(masks[3][1].item())))
+                # f.write(',')
                 f.write('\n')
 
 
