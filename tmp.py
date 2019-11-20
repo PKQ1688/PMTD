@@ -86,7 +86,7 @@ def handle_gt_json_to_txt(data_path):
 
                     points = order_points(points)
                     points_ = _order_points(points)
-                    print('2222', points)
+                    # print('2222', points)
                     # if points == point:
                     #     print('111', point)
                     fg.write(str(int(points[0][0])))
