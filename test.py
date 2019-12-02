@@ -81,8 +81,7 @@ import cv2
 
 
 def order_points(pts):
-    pts = np.array(pts)
-    print('111',pts)
+    pts = np.array(pts, dtype='int')
     # sort the points based on their x-coordinates
     xSorted = pts[np.argsort(pts[:, 0]), :]
 
@@ -102,11 +101,17 @@ def order_points(pts):
     # top-left and right-most points; by the Pythagorean
     # theorem, the point with the largest distance will be
     # our bottom-right point
-    D = dist.cdist(tl[np.newaxis], rightMost, "euclidean")[0]
-    (br, tr) = rightMost[np.argsort(D)[::-1], :]
+    rightMost = rightMost[np.argsort(rightMost[:, 1]), :]
+    print('1111', rightMost)
+    (tr, br) = rightMost
+    # D = dist.cdist(tl[np.newaxis], rightMost, "euclidean")[0]
+    # (br, tr) = rightMost[np.argsort(D)[::-1], :]
 
     # return the coordinates in top-left, top-right,
     # bottom-right, and bottom-left order
-    return np.array([tl, tr, br, bl], dtype="float32")
+    return np.array([tl, tr, br, bl], dtype="int")
 
-print(order_points(coords_))
+
+coords_1 = [[8, 540], [89, 559], [90, 541], [9, 559]]
+
+print(order_points(coords_1))
