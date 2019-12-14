@@ -71,7 +71,7 @@ def create_pmtd_demo(args):
     pmtd_demo = PMTDDemo(
         cfg,
         masker=masker,
-        confidence_threshold=0.5,
+        confidence_threshold=0.3,
         show_mask_heatmaps=False,
     )
 
