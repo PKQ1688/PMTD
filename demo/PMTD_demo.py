@@ -66,12 +66,12 @@ def create_pmtd_demo(args):
     if args.method == 'PlaneClustering':
         masker = PlaneClustering()
     else:
-        masker = Masker(threshold=0.01, padding=1)
+        masker = Masker(threshold=0.5, padding=1)
 
     pmtd_demo = PMTDDemo(
         cfg,
         masker=masker,
-        confidence_threshold=0.3,
+        confidence_threshold=0.0,
         show_mask_heatmaps=False,
     )
 
