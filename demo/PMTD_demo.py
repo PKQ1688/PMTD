@@ -72,7 +72,7 @@ def create_pmtd_demo(args):
         cfg,
         masker=masker,
         confidence_threshold=0.5,
-        show_mask_heatmaps=False,
+        show_mask_heatmaps=True,
     )
 
     return pmtd_demo
